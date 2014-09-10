@@ -55,6 +55,7 @@ body {
 
 /* Padding for spacing */
 .inner {
+    margin-top: 76px;
     padding: 30px;
 }
 
@@ -137,10 +138,14 @@ body {
     .masthead {
         position: fixed;
         top: 0;
+        z-index: 999;
+        background-color: #333;
     }
     .mastfoot {
         position: fixed;
         bottom: 0;
+        z-index: 999;
+        background-color: #333;
     }
     /* Start the vertical centering */
     .site-wrapper-inner {

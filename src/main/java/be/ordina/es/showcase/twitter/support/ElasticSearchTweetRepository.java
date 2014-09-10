@@ -17,6 +17,7 @@ import org.springframework.social.twitter.api.Tweet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ElasticSearchTweetRepository implements TweetRepository, DisposableBean {
 
@@ -57,7 +58,7 @@ public class ElasticSearchTweetRepository implements TweetRepository, Disposable
     @Override
     public List<Tweet> search(final String query) {
 
-        final List<String> terms = QUERY_SPLITTER.splitToList(query);
+        final List<String> terms = getTerms(query);
 
         final SearchResponse response = client.prepareSearch(INDEX_NAME)
                 .setTypes(TYPE_NAME)
@@ -71,5 +72,10 @@ public class ElasticSearchTweetRepository implements TweetRepository, Disposable
     @Override
     public void destroy() throws Exception {
         client.close();
+    }
+
+    private static List<String> getTerms(String query) {
+        return QUERY_SPLITTER.splitToList(query)
+                .stream().map((term) -> term.toLowerCase()).collect(Collectors.toList());
     }
 }
