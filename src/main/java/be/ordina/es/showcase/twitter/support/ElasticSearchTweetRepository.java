@@ -8,7 +8,6 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.base.Splitter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -47,10 +46,8 @@ public class ElasticSearchTweetRepository implements TweetRepository, Disposable
         json.put("retweetCount", tweet.getRetweetCount());
         json.put("profileImageUrl", tweet.getProfileImageUrl());
 
-        IndexResponse response = client.prepareIndex(INDEX_NAME, TYPE_NAME, String.valueOf(tweet.getId()))
-                .setSource(json)
-                .execute()
-                .actionGet();
+        // TODO Create and execute the index operation
+        IndexResponse response = null; //client.prepareIndex..
 
         logger.info("Saved tweet in ElasticSearch in index {}", response.getIndex());
     }
@@ -60,11 +57,8 @@ public class ElasticSearchTweetRepository implements TweetRepository, Disposable
 
         final List<String> terms = getTerms(query);
 
-        final SearchResponse response = client.prepareSearch(INDEX_NAME)
-                .setTypes(TYPE_NAME)
-                .setQuery(QueryBuilders.termsQuery("text", terms).minimumShouldMatch("1"))
-                .setFrom(0).setSize(100)
-                .execute().actionGet();
+        // TODO Create and execute the search operation
+        final SearchResponse response = null; //client.prepareSearch...
 
         return ElasticSearchTweets.getTweets(response);
     }
