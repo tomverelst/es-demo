@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:social="http://spring.io/springsocial"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Index Tweets</title>
+</head>
+<body>
+
+<div id="content" layout:fragment="content">
+    <h3>Index Tweets</h3>
+
+    <form th:action="@{/twitter/index}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <div class="form-group">
+            <input name="query" />
+        </div>
+        <input type="submit" value="Index" class="btn"/>
+    </form>
+   </div>
+</body>
+</html>

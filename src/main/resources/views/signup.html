@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:social="http://spring.io/springsocial"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+	<head>
+        <title>Elastic Search Demo</title>
+	</head>
+	<body>
+		<div id="content" layout:fragment="content">
+			<h3>Sign Up</h3>
+
+			<div th:if="${!#strings.isEmpty(message)}"
+				 th:class="${message.type.cssClass}"
+				 th:text="${message.text}">error message text</div>
+
+			<form id="signup" th:action="@{/signup}" method="post" th:object="${signupForm}">
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+				<div class="formInfo">
+					<div class="error" th:if="${#fields.hasErrors('*')}">Unable to sign up. Please fix the errors below and resubmit.</div>
+				</div>
+
+				<fieldset>
+                    <div class="form-group">
+                        <label for="firstName">First Name <span th:if="${#fields.hasErrors('firstName')}" class="error" th:text="${#fields.errors('firstName')[0]}">Error</span></label>
+                        <input type="text" th:field="*{firstName}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span th:if="${#fields.hasErrors('lastName')}" class="error" th:text="${#fields.errors('lastName')[0]}">Error</span></label>
+                        <input type="text" th:field="*{lastName}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username <span th:if="${#fields.hasErrors('username')}" class="error" th:text="${#fields.errors('username')[0]}">Error</span></label>
+                        <input type="text" th:field="*{username}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password (at least 6 characters) <span th:if="${#fields.hasErrors('password')}" class="error" th:text="${#fields.errors('password')[0]}">Error</span></label>
+                        <input type="password" th:field="*{password}" />
+                    </div>
+				</fieldset>
+				<p><button type="submit">Sign Up</button></p>
+			</form>
+		</div>
+	</body>
+</html>
+

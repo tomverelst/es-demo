@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:social="http://spring.io/springsocial"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+	<head>
+		<title>Home</title>
+	</head>
+	<body>
+		<div id="content" layout:fragment="content">
+            <h1 class="cover-heading">Welcome, <span th:text="${account.firstName}"></span>!</h1>
+
+			<form method="POST" th:action="@{/signout}">
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+				<button class="btn">Sign Out</button>
+			</form>
+		</div>
+	</body>
+</html>

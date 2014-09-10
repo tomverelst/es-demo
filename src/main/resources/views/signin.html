@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:social="http://spring.io/springsocial"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+	<head>
+        <title>Elastic Search Demo</title>
+	</head>
+	<body>
+		<div id="content" layout:fragment="content">
+			<form id="signin" th:action="@{/signin/authenticate}" method="post">
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
+				<div class="formInfo">
+			  		<div class="error" th:if="${param.error eq 'bad_credentials'}">
+			  			Your sign in information was incorrect.
+			  			Please try again or <a th:href="@{/signup}">sign up</a>.
+			  		</div>
+			  		<div class="error" th:if="${param.error eq 'multiple_users'}">
+			  			Multiple local accounts are connected to the provider account.
+			  			Try again with a different provider or with your username and password.
+			  		</div>
+				</div>
+				<fieldset>
+                    <div class="form-group">
+					    <label for="login">Username</label>
+					    <input id="login" name="username" type="text" size="25"></input>
+                    </div>
+                    <div class="form-group">
+					    <label for="password">Password</label>
+					    <input id="password" name="password" type="password" size="25"></input>
+                    </div>
+				</fieldset>
+				<button type="submit" class="btn">Sign In</button>
+
+
+				<!--<p>You can <a th:href="@{/signup}">signup</a> with a new account.</p>-->
+			</form>
+
+            <!-- TWITTER SIGNIN -->
+            <form id="tw_signin" th:action="@{/signin/twitter}" method="POST">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"></input>
+                <button type="submit"><img th:src="@{/resources/social/twitter/sign-in-with-twitter-d.png}" /></button>
+            </form>
+
+		</div>
+	</body>
+</html>

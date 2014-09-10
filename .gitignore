@@ -1,0 +1,6 @@
+.DS_Store
+build/
+es-demo.iml
+*.project
+es-demo.ipr
+es-demo.iws

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:social="http://spring.io/springsocial"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Search Tweets</title>
+</head>
+<body>
+
+<div id="content" layout:fragment="content">
+    <h3>Search Tweets</h3>
+
+    <form th:action="@{/twitter/search}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <div class="form-group">
+            <input name="query" />
+        </div>
+        <input type="submit" value="Search" class="btn"/>
+    </form>
+
+    <ul class="imagedList">
+        <li class="imagedItem" th:each="tweet : ${tweets}">
+            <div class="image" th:if="${!#strings.isEmpty(tweet.profileImageUrl)}">
+                <img th:src="${tweet.profileImageUrl}" align="left"/>
+            </div>
+            <div class="content">
+                <strong><a th:href="'http://twitter.com/' + ${tweet.fromUser}" th:text="${tweet.fromUser}">from user</a></strong><br/>
+                <span th:text="${tweet.text}">tweet text</span><br/>
+                <span class="postTime" th:text="${tweet.createdAt}">created at</span>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

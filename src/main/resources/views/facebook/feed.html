@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:social="http://spring.io/springsocial"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout">
+	<head>
+		<title>Search Feed</title>
+	</head>
+	<body>
+		<div id="content" layout:fragment="content">
+			<h3>Your Facebook Feed</h3>
+
+			<div class="feed">
+			<ul class="feedList">
+				<li class="post" th:each="post : ${feed}">
+                    <p>
+                        <img th:if="${!#strings.isEmpty(post.picture)}" th:src="${post.picture}" align="top"/>
+                        <span th:text="${post.message}">message</span> - <span th:text="${post.name}">name</span>
+                    </p>
+				</li>
+			</ul>
+			</div>
+		</div>
+	</body>
+</html>
